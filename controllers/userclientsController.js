@@ -47,3 +47,59 @@ exports.login = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
 };
 
+
+exports.AjoutClient=(req,res)=>{
+
+    // repare.save()
+    // .then((repare)=> {
+    //     return res.status(201).json({repare})
+    // })
+    // .catch((error)=>{
+    //     return res.status(400).json({error})
+    // })
+    
+    if (!req.body){
+        res.status(400).send({message:"Cannot can not be empty"})
+        return;
+    }
+    const client = new userclients({
+       
+        nom:req.body.nom,
+        prenom: req.body.prenom,
+        civilite:req.body.civilite,
+        adresse: req.body.adresse,
+        telephone:req.body.telephone,
+        email: req.body.email,
+        idvoiture: req.body.idvoiture,
+     
+    
+    });
+    repare
+    .save(repare)
+    .then(data=>{
+        res.send(data)
+    })
+    .catch(err=>{
+        res.status(500).send({message:err.message || "some error about creating "})
+    
+                })
+    }
+    
+    //retrieve and return all user
+    exports.FindClient=(req,res)=>{
+    
+    }
+    // update a new repair by id
+    exports.UpdateClient=(req,res)=>{
+    
+    }
+    
+    // delete a repair specified by id
+    exports.DeleteClient=(req,res)=>{
+    
+    }
+    
+    // delete all repair
+    exports.DeleteAllClient=(req,res)=>{
+    
+    }
