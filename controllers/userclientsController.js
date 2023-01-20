@@ -4,22 +4,28 @@ const jwt = require('jsonwebtoken');
 const userclients = require ('../models/userclientsModel');
 
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-      const userclients = new userclients({
+  bcrypt.hash(req.body.password, 10, function(err,hashedPass){
+    if(err){
+        res.json({ error : err})
+    }
+  
+       let Userclients = new userclients({
         nom: req.body.nom,
         prenom: req.body.prenom,
         civilite: req.body.civilite,
         adresse: req.body.adresse,
         telephone: req.body.telephone,
         email: req.body.email,
-        password: hash,
-      });
-      userclients.save()
-        .then(() => res.status(201).json({ message: 'Compte créé !' }))
-        .catch(error => res.status(400).json({ error }));
+        password:hashedPass,
+        idvoiture:req.body.idvoiture
+       })
+       
+      
+      Userclients.save()
+        .then(userclients => {res.json({ message: 'Compte créé !' })})
+        .catch(error => {res.json({ message : error.message })});
     })
-    .catch(error => res.status(500).json({ error }));
+    
 };
 
 exports.login = (req, res, next) => {
@@ -74,8 +80,8 @@ exports.AjoutClient=(req,res)=>{
      
     
     });
-    repare
-    .save(repare)
+    client
+    .save(client)
     .then(data=>{
         res.send(data)
     })
@@ -85,17 +91,61 @@ exports.AjoutClient=(req,res)=>{
                 })
     }
     
-    //retrieve and return all user
-    exports.FindClient=(req,res)=>{
+    //retrieve and return all user: singleuser
+    exports.getOneUser=(req,res)=>{
+        const id =req.params.id
+        userclients.findOne({_id:id})
+        .then((userclients)=>{return res.status(200).json({userclients})} )
+        .catch((error)=>{return res.status(400).json(error)})
+}
+
+    exports.getAllUser=(req,res)=>{
     
-    }
+    userclients.find()
+    .then((userclients)=>{return res.status(200).json({userclients})} )
+    .catch((error)=>{return res.status(400).json(error)})
+}
+    
+    //
     // update a new repair by id
     exports.UpdateClient=(req,res)=>{
+     if(!req.body){
+        return res
+        .status(400)
+        .send({message:"Data to update can not be empty"})
+     }
+
+        const id = req.params.id;
+
+        userclients.findByIdAndUpdate(id,req.body ,{useFindAndModify:false})
+    .then(data=>{
+        if(!data){
+            res.status(404).send({message:"cannot update user with ${id}. maybe user not found!"})
+        }
+        else {
+            res.send(data)
+        }
+    }).catch(err=>{
+        res.status(500).send({message:"error update user information"})
+    })
+     }
     
-    }
     
     // delete a repair specified by id
     exports.DeleteClient=(req,res)=>{
+        const id = req.params.id;
+        userclients.findByIdAndDelete(id)
+        .then(data=>{
+            if(!data){
+                res.status(404).send({message:"cannot delete with ${id} ,  maybe id is wrong"})
+            }
+            else{
+                res.send({message:"user deleted successfully"})
+            }
+        })
+        .catch(err=>{
+            res.status(500).send({message: "Could not delete user with id="+id})
+        })
     
     }
     

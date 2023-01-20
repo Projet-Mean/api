@@ -8,9 +8,7 @@ const voituresSchema = mongoose.Schema({
     modele: { type: String, required: true },
     annee: { type: Number, required: true },
     
-    
-    
-  });
+ });
   
-  voituresSchema.plugin(uniqueValidator);
+
   module.exports = mongoose.model('voitures', voituresSchema);

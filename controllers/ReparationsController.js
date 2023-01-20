@@ -1,5 +1,6 @@
 const reparationsModel = require('../models/reparationsModel');
 
+
 exports.AjoutReparation=(req,res)=>{
 
 // repare.save()
@@ -35,22 +36,67 @@ repare
 
             })
 }
-
-//retrieve and return all user
-exports.FindReparation=(req,res)=>{
-
+  //retrieve and return all reparation: singlereparation
+  exports.getOneRepare=(req,res)=>{
+    const id =req.params.id
+    reparationsModel.findOne({_id:id})
+    .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
+    .catch((error)=>{return res.status(400).json(error)})
 }
+
+exports.getAllRepare=(req,res)=>{
+
+reparationsModel.find()
+.then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
+.catch((error)=>{return res.status(400).json(error)})
+}
+
+
 // update a new repair by id
 exports.UpdateReparation=(req,res)=>{
+ if(!req.body){
+    return res
+    .status(400)
+    .send({message:"Data to update can not be empty"})
+ }
 
-}
+    const id = req.params.id;
+
+    reparationsModel.findByIdAndUpdate(id,req.body ,{useFindAndModify:false})
+.then(data=>{
+    if(!data){
+        res.status(404).send({message:"cannot update user with ${id}. maybe user not found!"})
+    }
+    else {
+        res.send(data)
+    }
+}).catch(err=>{
+    res.status(500).send({message:"error update user information"})
+})
+ }
+
 
 // delete a repair specified by id
-exports.DeleteReparation=(req,res)=>{
+exports.DeleteOneReparation=(req,res)=>{
+    const id = req.params.id;
+    reparationsModel.findByIdAndDelete(id)
+    .then(data=>{
+        if(!data){
+            res.status(404).send({message:"cannot delete with ${id} ,  maybe id is wrong"})
+        }
+        else{
+            res.send({message:"user deleted successfully"})
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message: "Could not delete user with id="+id})
+    })
 
 }
 
 // delete all repair
-exports.DeleteAllReparation=(req,res)=>{
+exports.DeleteAllReparations=(req,res)=>{
 
 }
+
+

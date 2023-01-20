@@ -19,7 +19,7 @@ normalizePort = (val) =>{
   }
   return false;
 }
-
+mongoose.set('strictQuery',false);
 mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true 
@@ -33,8 +33,13 @@ app.get('/',(req,res)=>{
 
 app.use(bodyParser.json())
 //enregistrement route authentification
-app.use('/api/auth', userclientsRoutes);
-app.use('/',reparationRoutes);
+app.use('/auth',require('./routes/userclientsRoute'));
+app.use('/api',require('./routes/userclientsRoute'));
+app.use('/api',require('./routes/reparationsRoute'));
+app.use('/api',require('./routes/voituresRoute'));
+
+
+
 
 
 
