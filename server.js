@@ -33,10 +33,12 @@ app.get('/',(req,res)=>{
 
 app.use(bodyParser.json())
 //enregistrement route authentification
-app.use('/auth',require('./routes/userclientsRoute'));
+app.use('/auth/user',require('./routes/userclientsRoute'));
 app.use('/api',require('./routes/userclientsRoute'));
 app.use('/api',require('./routes/reparationsRoute'));
 app.use('/api',require('./routes/voituresRoute'));
+app.use('/auth/userfinancial',require('./routes/userfinancial'));
+app.use('/auth/userworkshop',require('./routes/userworkshop'));
 
 
 
