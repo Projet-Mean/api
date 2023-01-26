@@ -17,7 +17,8 @@ exports.signup = (req, res, next) => {
         telephone: req.body.telephone,
         email: req.body.email,
         password:hashedPass,
-        idvoiture:req.body.idvoiture
+        passwordconfirmation:hashedPass
+        
        })
        
       
