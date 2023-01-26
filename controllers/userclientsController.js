@@ -4,10 +4,8 @@ const jwt = require('jsonwebtoken');
 const userclients = require ('../models/userclientsModel');
 
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10, function(err,hashedPass){
-    if(err){
-        res.json({ error : err})
-    }
+ 
+    
   
        let Userclients = new userclients({
         nom: req.body.nom,
@@ -22,12 +20,19 @@ exports.signup = (req, res, next) => {
        })
        
       
-      Userclients.save()
-        .then(userclients => {res.json({ message: 'Compte créé !' })})
-        .catch(error => {res.json({ message : error.message })});
-    })
-    
-};
+      Userclients.save((err,doc)=>{
+        if (!err)
+        res.send(doc);
+    else {
+        if (err.code == 11000)
+            res.status(422).send(['Duplicate email adrress found.']);
+        else
+            return next(err);
+    }
+        // .then(Userclients => {res.json({ message: 'Compte créé !' })})
+        // .catch(error => {res.json({ message : error.message })});
+})
+}
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })

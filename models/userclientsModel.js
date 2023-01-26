@@ -7,14 +7,13 @@ var clientsSchema = mongoose.Schema({
   prenom: { type: String, required: "Ce champs est obligatoire"  },
   civilite: { type: String, required: "Ce champs est obligatoire"  },
   adresse: { type: String, required: "Ce champs est obligatoire"  },
-  telephone: { type: String, required: "Ce champs est obligatoire"  },
+  telephone: { type: Number , required: "Ce champs est obligatoire"  },
   email: { type: String, required: "Ce champs est obligatoire" , unique: true },
-  password: { type: String ,required:"Ce champs est obligatoire" },
+  password: { type: String ,required:"Ce champs est obligatoire" , minlength:[5,"Ce champs doit comporter au moins 5 caractères"]},
   passwordconfirmation: { type: String, required: "Ce champs est obligatoire"  },
   saltSecret:String
 });
 
-clientsSchema.plugin(uniqueValidator);
 
 //Custom validation for email
 clientsSchema.path('email').validate((val) => {
