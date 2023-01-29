@@ -3,46 +3,53 @@ const reparationsModel = require('../models/reparationsModel');
 
 exports.AjoutReparation=(req,res)=>{
 
-// repare.save()
-// .then((repare)=> {
-//     return res.status(201).json({repare})
-// })
-// .catch((error)=>{
-//     return res.status(400).json({error})
-// })
+    // repare.save()
+    // .then((repare)=> {
+    //     return res.status(201).json({repare})
+    // })
+    // .catch((error)=>{
+    //     return res.status(400).json({error})
+    // })
 
-if (!req.body){
-    res.status(400).send({message:"Cannot can not be empty"})
-    return;
-}
-const repare = new reparationsModel({
-    reference:req.body.reference,
-    immatriculation:req.body.immatriculation,
-    panne :req.body.panne,
-    solution:req.body.solution,
-    responsable: req.body.responsable,
-    dateentree:req.body.dateentree,
-    datesortie: req.body.datesortie,
-    montanttotal: req.body.montanttotal
+    if (!req.body){
+        res.status(400).send({message:"Cannot can not be empty"})
+        return;
+    }
+    const repare = new reparationsModel({
+        reference:req.body.reference,
+        immatriculation:req.body.immatriculation,
+        panne :req.body.panne,
+        solution:req.body.solution,
+        responsable: req.body.responsable,
+        dateentree:req.body.dateentree,
+        datesortie: req.body.datesortie,
+        montanttotal: req.body.montanttotal,
+        status: req.body.status
 
-});
-repare
-.save(repare)
-.then(data=>{
-    res.send(data)
-})
-.catch(err=>{
-    res.status(500).send({message:err.message || "some error about creating "})
+    });
+    repare
+    .save(repare)
+    .then(data=>{
+        res.send(data)
+    })
+    .catch(err=>{
+        res.status(500).send({message:err.message || "some error about creating "})
 
-            })
+                })
 }
   //retrieve and return all reparation: singlereparation
-  exports.getOneRepare=(req,res)=>{
-    const id =req.params.id
-    reparationsModel.findOne({_id:id})
-    .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
-    .catch((error)=>{return res.status(400).json(error)})
-}
+    exports.getOneRepare=(req,res)=>{
+        const id =req.params.id
+        reparationsModel.findOne({_id:id})
+        .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
+    exports.getbyMatricule=(req,res)=>{
+        const matricule =req.params.id
+        reparationsModel.findOne({immatriculation :{$eq : matricule}})
+        .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
 
 exports.getAllRepare=(req,res)=>{
 
