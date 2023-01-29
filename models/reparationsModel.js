@@ -8,8 +8,8 @@ const reparationsSchema = mongoose.Schema({
     responsable: { type: String, required: true },
     dateentree: { type: String, required: true },
     datesortie: { type: String, required: true },
-    montanttotal: { type:String, required: true , }
-    
+    montanttotal: { type:String, required: true , },
+    status:{ type:String, required: true , }
     
     
   });
