@@ -20,9 +20,8 @@ const voiture = new voitureModel({
     marque: req.body.marque,
     modele:req.body.modele,
     annee:req.body.annee,
-
-   
-
+    attente:req.body.attente,
+    assigne:req.body.assigne,
 });
 voiture
 .save(voiture)
@@ -35,19 +34,31 @@ voiture
             })
 }
   //retrieve and return all reparation: singlereparation
-  exports.getOneVoiture=(req,res)=>{
-    const id =req.params.id
-voitureModel.findOne({_id:id})
-    .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
-    .catch((error)=>{return res.status(400).json(error)})
-}
+    exports.getOneVoiture=(req,res)=>{
+        const id =req.params.id
+        voitureModel.findOne({_id:id})
+            .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
+            .catch((error)=>{return res.status(400).json(error)})
+    }
 
-exports.getAllVoiture=(req,res)=>{
+    exports.getAllVoiture=(req,res)=>{
+        voitureModel.find()
+        .then((voitureModel)=>{console.log(voitureModel);return res.status(200).json({voitureModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
+    
+    exports.getAllVoitureAt=(req,res)=>{
 
-voitureModel.find()
-.then((voi)=>{return res.status(200).json({voitureModel})} )
-.catch((error)=>{return res.status(400).json(error)})
-}
+        voitureModel.find({attente : {$ne : false}})
+        .then(()=>{return res.status(200).json({voitureModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
+    exports.getAllVoitureMine=(req,res)=>{
+        const id =req.params.id
+        voitureModel.find({assigne : {$eq : id}})
+        .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
 
 
 // update a new repair by id
