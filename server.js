@@ -34,7 +34,7 @@ app.use(cors())
 app.use(bodyParser.json())
 //enregistrement route authentification
 app.use('/auth/user',require('./routes/userclientsRoute'));
-app.use('/api',require('./routes/userclientsRoute'));
+app.use('/api/cli',require('./routes/userclientsRoute'));
 app.use('/api',require('./routes/reparationsRoute'));
 app.use('/api',require('./routes/voituresRoute'));
 app.use('/auth/userfinancial',require('./routes/userfinancial'));
@@ -42,6 +42,7 @@ app.use('/auth/userworkshop',require('./routes/userworkshop'));
 app.use('/api/depense',require('./routes/depenseRoute'));
 app.use('/api/benefice',require('./routes/beneficeRoute'));
 app.use('/api/entree',require('./routes/entreeRoute'));
+
 
 // error handler
 app.use((err, req, res, next) => {
