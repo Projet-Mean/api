@@ -30,7 +30,7 @@ mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?r
 app.get('/',(req,res)=>{
   res.send('le serveur est la')
 })
-
+app.use(cors())
 app.use(bodyParser.json())
 //enregistrement route authentification
 app.use('/auth/user',require('./routes/userclientsRoute'));
