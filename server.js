@@ -38,7 +38,7 @@ app.get('/',(req,res)=>{
 })
 app.use(express.json())
 app.use(bodyParser.json())
-//enregistrement route authentification
+
 app.use('/auth',require('./routes/userclientsRoute'));
 app.use('/api',require('./routes/reparationsRoute'));
 app.use('/api',require('./routes/voituresRoute'));
