@@ -13,6 +13,7 @@ if (!req.body){
 const entree = new EntreeModel({
     mois :req.body.salaire,
   paiement:req.body.salaire ,
+  
     
  
 });

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require ('bcrypt')
 
+ 
 var clientsSchema = mongoose.Schema({
   nom: { type: String, required: "Ce champs est obligatoire" },
   prenom: { type: String, required: "Ce champs est obligatoire"  },

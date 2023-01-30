@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bodyParser = require ("body-parser");
+const cors = require('cors')
 
 const userclientsRoutes = require('./routes/userclientsRoute');
 const reparationRoutes = require("./routes/reparationsRoute");
@@ -19,9 +20,14 @@ normalizePort = (val) =>{
   }
   return false;
 }
+
+// app.use(cors({
+//   origin : "http://localhost:4200"
+// }))
 mongoose.set('strictQuery',false);
 mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
+
+{ useNewUrlParser: true,
     useUnifiedTopology: true 
   })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -30,10 +36,10 @@ mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?r
 app.get('/',(req,res)=>{
   res.send('le serveur est la')
 })
-
+app.use(express.json())
 app.use(bodyParser.json())
 //enregistrement route authentification
-app.use('/auth/user',require('./routes/userclientsRoute'));
+app.use('/auth',require('./routes/userclientsRoute'));
 app.use('/api',require('./routes/userclientsRoute'));
 app.use('/api',require('./routes/reparationsRoute'));
 app.use('/api',require('./routes/voituresRoute'));
