@@ -24,7 +24,8 @@ const userclients = require ('../models/userclientsModel');
 // module.exports={createUserctrl};
 
 exports.signup = (req, res, next) => {
- let Userclients = new userclients({
+    console.log("atoo 1" +req.body);
+    let Userclients = new userclients({
         nom: req.body.nom,
         prenom: req.body.prenom,
         civilite: req.body.civilite,
@@ -35,7 +36,6 @@ exports.signup = (req, res, next) => {
         passwordconfirmation:req.body.passwordconfirmation
         
         })
-       console.log("atoo ggdus" +Userclients.nom);
       Userclients.save((err,doc)=>{
         if (!err){
             console.log("atoo");
@@ -47,20 +47,23 @@ exports.signup = (req, res, next) => {
         else
             return next(err);
     }
-  })
+        // .then(Userclients => {res.json({ message: 'Compte créé !' })})
+        // .catch(error => {res.json({ message : error.message })});
+})
 }
 
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+    userclients.findOne({ email: {$eq:req.body.email} })
       .then(user => {
           if (!user) {
-              return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+            return res.status(401).json({ error: 'Utilisateur non trouvé !' });
           }
           bcrypt.compare(req.body.password, user.password)
               .then(valid => {
                   if (!valid) {
                       return res.status(401).json({ error: 'Mot de passe incorrect !' });
                   }
+                  console.log("mety");
                   res.status(200).json({
                       userId: user._id,
                       token: jwt.sign(
@@ -74,7 +77,6 @@ exports.login = (req, res, next) => {
       })
       .catch(error => res.status(500).json({ error }));
 };
-
 
 exports.AjoutClient=(req,res)=>{
 
