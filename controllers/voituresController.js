@@ -49,6 +49,7 @@ voiture
     
     exports.getVoiturebycli=(req,res)=>{
         const id =req.params.id
+        console.log(id);
         voitureModel.find({id_client: {$eq:id},sortie:{$eq:"0"}})
         .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
         .catch((error)=>{return res.status(400).json(error)})
