@@ -6,7 +6,9 @@ const voituresSchema = mongoose.Schema({
     id_client: { type: String, required: true },
     marque: { type: String, required: true },
     modele: { type: String, required: true },
-    annee: { type: Number, required: true },
+    annee: { type: String, required: true },
+    attente: { type: Boolean, required: true },
+    assigne: { type: String, required: true }
     
  });
   
