@@ -24,34 +24,30 @@ const userclients = require ('../models/userclientsModel');
 // module.exports={createUserctrl};
 
 exports.signup = (req, res, next) => {
- 
-    
-  
-       let Userclients = new userclients({
+ let Userclients = new userclients({
         nom: req.body.nom,
         prenom: req.body.prenom,
         civilite: req.body.civilite,
         adresse: req.body.adresse,
         telephone: req.body.telephone,
         email: req.body.email,
-        password:hashedPass,
-        passwordconfirmation:hashedPass
+        password:req.body.password,
+        passwordconfirmation:req.body.passwordconfirmation
         
-       })
-       
-      
+        })
+       console.log("atoo ggdus" +Userclients.nom);
       Userclients.save((err,doc)=>{
-        if (!err)
-        res.send(doc);
+        if (!err){
+            console.log("atoo");
+            res.send(doc);
+        }
     else {
         if (err.code == 11000)
             res.status(422).send(['Duplicate email adrress found.']);
         else
             return next(err);
     }
-        // .then(Userclients => {res.json({ message: 'Compte créé !' })})
-        // .catch(error => {res.json({ message : error.message })});
-})
+  })
 }
 
 exports.login = (req, res, next) => {
