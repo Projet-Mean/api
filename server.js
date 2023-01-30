@@ -21,9 +21,7 @@ normalizePort = (val) =>{
   return false;
 }
 
-app.use(cors({
-  origin : "http://localhost:4200"
-}))
+app.use(cors())
 mongoose.set('strictQuery',false);
 mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?retryWrites=true&w=majority',
 
