@@ -22,7 +22,7 @@ normalizePort = (val) =>{
 }
 
 app.use(cors({
-    origin: 'https://frontend-rose-two.vercel.app/'
+    origin: '*'
 }))
 mongoose.set('strictQuery',false);
 mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?retryWrites=true&w=majority',
