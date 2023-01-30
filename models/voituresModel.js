@@ -8,7 +8,8 @@ const voituresSchema = mongoose.Schema({
     modele: { type: String, required: true },
     annee: { type: String, required: true },
     attente: { type: Boolean, required: true },
-    assigne: { type: String, required: true }
+    assigne: { type: String, required: true },
+    sortie: { type: String, required: true }
     
  });
   
