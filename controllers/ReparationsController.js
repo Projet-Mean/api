@@ -38,7 +38,7 @@ exports.AjoutReparation=(req,res)=>{
                 })
 }
   //retrieve and return all reparation: singlereparation
-    xports.getOneRepare=(req,res)=>{
+    exports.getOneRepare=(req,res)=>{
         const id =req.params.id
         reparationsModel.findOne({_id:id})
         .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
