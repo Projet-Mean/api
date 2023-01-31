@@ -22,6 +22,7 @@ const voiture = new voitureModel({
     annee:req.body.annee,
     attente:req.body.attente,
     assigne:req.body.assigne,
+    sortie:req.body.sortie,
 });
 voiture
 .save(voiture)
