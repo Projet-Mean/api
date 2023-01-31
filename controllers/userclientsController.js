@@ -5,21 +5,32 @@ const userclients = require ('../models/userclientsModel');
 
 
 exports.signup = (req, res, next) => {
+<<<<<<< HEAD
  
    let Userclients = new userclients({
+=======
+    console.log("atoo 1" +req.body);
+    let Userclients = new userclients({
+>>>>>>> cf38c43e75a6c353072fee1f503a292b676e8d1b
         nom: req.body.nom,
         prenom: req.body.prenom,
         civilite: req.body.civilite,
         adresse: req.body.adresse,
         telephone: req.body.telephone,
         email: req.body.email,
-        password:hashedPass,
-        passwordconfirmation:hashedPass
+        password:req.body.password,
+        passwordconfirmation:req.body.passwordconfirmation
         
+<<<<<<< HEAD
        })
+=======
+        })
+>>>>>>> cf38c43e75a6c353072fee1f503a292b676e8d1b
       Userclients.save((err,doc)=>{
-        if (!err)
-        res.send(doc);
+        if (!err){
+            console.log("atoo");
+            res.send(doc);
+        }
     else {
         if (err.code == 11000)
             res.status(422).send(['Duplicate email adrress found.']);
@@ -32,16 +43,17 @@ exports.signup = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+    userclients.findOne({ email: {$eq:req.body.email} })
       .then(user => {
           if (!user) {
-              return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+            return res.status(401).json({ error: 'Utilisateur non trouvé !' });
           }
           bcrypt.compare(req.body.password, user.password)
               .then(valid => {
                   if (!valid) {
                       return res.status(401).json({ error: 'Mot de passe incorrect !' });
                   }
+                  console.log("mety");
                   res.status(200).json({
                       userId: user._id,
                       token: jwt.sign(
@@ -55,7 +67,6 @@ exports.login = (req, res, next) => {
       })
       .catch(error => res.status(500).json({ error }));
 };
-
 
 exports.AjoutClient=(req,res)=>{
 

@@ -38,7 +38,7 @@ exports.AjoutReparation=(req,res)=>{
                 })
 }
   //retrieve and return all reparation: singlereparation
-    exports.getOneRepare=(req,res)=>{
+    xports.getOneRepare=(req,res)=>{
         const id =req.params.id
         reparationsModel.findOne({_id:id})
         .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
@@ -46,7 +46,13 @@ exports.AjoutReparation=(req,res)=>{
     }
     exports.getbyMatricule=(req,res)=>{
         const matricule =req.params.id
-        reparationsModel.findOne({immatriculation :{$eq : matricule}})
+        reparationsModel.find({immatriculation :{$eq : matricule}})
+        .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
+    exports.getbyid=(req,res)=>{
+        const matricule =req.params.id
+        reparationsModel.find({id_cli :{$eq : matricule}})
         .then((reparationsModel)=>{return res.status(200).json({reparationsModel})} )
         .catch((error)=>{return res.status(400).json(error)})
     }

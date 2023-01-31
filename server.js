@@ -22,7 +22,7 @@ normalizePort = (val) =>{
 }
 
 app.use(cors({
-  origin : "http://localhost:4200"
+    origin: '*'
 }))
 mongoose.set('strictQuery',false);
 mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?retryWrites=true&w=majority',
@@ -38,13 +38,12 @@ app.get('/',(req,res)=>{
 })
 app.use(express.json())
 app.use(bodyParser.json())
-//enregistrement route authentification
+
 app.use('/auth',require('./routes/userclientsRoute'));
-app.use('/api',require('./routes/userclientsRoute'));
 app.use('/api',require('./routes/reparationsRoute'));
 app.use('/api',require('./routes/voituresRoute'));
 app.use('/auth/userfinancial',require('./routes/userfinancial'));
-app.use('/auth/userworkshop',require('./routes/userworkshop'));
+app.use('/auth',require('./routes/userworkshop'));
 app.use('/api/depense',require('./routes/depenseRoute'));
 app.use('/api/benefice',require('./routes/beneficeRoute'));
 app.use('/api/entree',require('./routes/entreeRoute'));

@@ -47,15 +47,26 @@ voiture
         .catch((error)=>{return res.status(400).json(error)})
     }
     
+    exports.getVoiturebycli=(req,res)=>{
+        const id =req.params.id
+        console.log(id);
+        voitureModel.find({id_client: {$eq:id},sortie:{$eq:"0"}})
+        .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
     exports.getAllVoitureAt=(req,res)=>{
-
         voitureModel.find({attente : {$ne : false}})
-        .then(()=>{return res.status(200).json({voitureModel})} )
+        .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
         .catch((error)=>{return res.status(400).json(error)})
     }
     exports.getAllVoitureMine=(req,res)=>{
         const id =req.params.id
         voitureModel.find({assigne : {$eq : id}})
+        .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
+        .catch((error)=>{return res.status(400).json(error)})
+    }
+    exports.sortie=(req,res)=>{
+        voitureModel.find({sortie:{$eq:"1"}})
         .then((voitureModel)=>{return res.status(200).json({voitureModel})} )
         .catch((error)=>{return res.status(400).json(error)})
     }
