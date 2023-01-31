@@ -5,13 +5,8 @@ const userclients = require ('../models/userclientsModel');
 
 
 exports.signup = (req, res, next) => {
-<<<<<<< HEAD
  
    let Userclients = new userclients({
-=======
-    console.log("atoo 1" +req.body);
-    let Userclients = new userclients({
->>>>>>> cf38c43e75a6c353072fee1f503a292b676e8d1b
         nom: req.body.nom,
         prenom: req.body.prenom,
         civilite: req.body.civilite,
@@ -21,11 +16,7 @@ exports.signup = (req, res, next) => {
         password:req.body.password,
         passwordconfirmation:req.body.passwordconfirmation
         
-<<<<<<< HEAD
        })
-=======
-        })
->>>>>>> cf38c43e75a6c353072fee1f503a292b676e8d1b
       Userclients.save((err,doc)=>{
         if (!err){
             console.log("atoo");
