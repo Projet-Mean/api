@@ -5,6 +5,7 @@ const userclientsCtrl = require('../controllers/userclientsController');
 // router.post('/register',userclientsCtrl.createUserctrl)
 router.post('/signup', userclientsCtrl.signup);
 router.post('/login', userclientsCtrl.login);
+
 router.post('/add', userclientsCtrl.AjoutClient);
 router.get('/custumer', userclientsCtrl.getAllUser);
 router.get('/custumer/:id', userclientsCtrl.getOneUser);
