@@ -7,9 +7,6 @@ const dotenv = require('dotenv');
 const bodyParser = require ("body-parser");
 const cors = require('cors')
 
-const userclientsRoutes = require('./routes/userclientsRoute');
-const reparationRoutes = require("./routes/reparationsRoute");
-
 normalizePort = (val) =>{
   const port = parseInt(val, 10);
   if(isNaN(port)){
@@ -23,7 +20,7 @@ normalizePort = (val) =>{
 
 app.use(cors());
 mongoose.set('strictQuery',false);
-mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://assigmentapp:assigmentapp123@cluster0.slrjbpl.mongodb.net/assignments?retryWrites=true&w=majority&appName=Cluster0',
 
 { useNewUrlParser: true,
     useUnifiedTopology: true 
@@ -32,19 +29,12 @@ mongoose.connect('mongodb+srv://Baovola:baovola0@bdmecano.hgc1u8o.mongodb.net/?r
   .catch(() => console.log('Connexion à MongoDB échouée !'));
   
 app.get('/',(req,res)=>{
-  res.send('le serveur est la')
+  res.send('le serveur est actif')
 })
 app.use(express.json())
 app.use(bodyParser.json())
 
-app.use('/auth',require('./routes/userclientsRoute'));
-app.use('/api',require('./routes/reparationsRoute'));
-app.use('/api',require('./routes/voituresRoute'));
-app.use('/auth/userfinancial',require('./routes/userfinancial'));
-app.use('/auth',require('./routes/userworkshop'));
-app.use('/api/depense',require('./routes/depenseRoute'));
-app.use('/api/benefice',require('./routes/beneficeRoute'));
-app.use('/api/entree',require('./routes/entreeRoute'));
+app.use('/api/etu/', require('./routes/etudiants.routes'));
 
 // error handler
 app.use((err, req, res, next) => {
@@ -55,12 +45,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-
-
-
-
-
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || "8010");
 app.set('port', port);
 app.listen(port, ()=>{
     console.log(`Listening on port ${port}`); 
